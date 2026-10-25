@@ -1,19 +1,24 @@
-# 🎈 Blank app template
+# 🎭 Aarya Studio — ComfyUI Identity Pack
 
-A simple Streamlit app template for you to modify!
+A Streamlit studio + a ready-to-run **ComfyUI workflow pack** for **Aarya**:
+feed it *one reference image* (who Aarya is) + *one driving video* (what motion to perform)
+and get videos / stills of Aarya herself, identity locked.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+- **`aarya/`** — the pack: 3 validated workflow JSONs (Wan-Animate-2 video ×2, CPU face-lock
+  stills ×1), build scripts, structural validator, and the full setup guide
+  ([`aarya/README.md`](aarya/README.md)).
+- **`streamlit_app.py`** — this studio: hardware-aware workflow picker, model checklist,
+  prep guide, cloud-run recipe.
 
-### How to run it on your own machine
+### Run the studio
 
-1. Install the requirements
+```bash
+pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
 
-   ```
-   $ pip install -r requirements.txt
-   ```
+### Run the workflows
 
-2. Run the app
-
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+Open ComfyUI (≥ 0.42), drag in `aarya/workflows/aarya_video_wan_animate2_gpu.json`
+(NVIDIA ≥ 16 GB / cloud) or `aarya_stills_facelock_cpu.json` (CPU laptops).
+Models, folders, sources and tuning knobs: [`aarya/README.md`](aarya/README.md).
