@@ -27,6 +27,23 @@ Your app  ──►  FreeLLMAPI (on your laptop)  ──►  Google / Groq / Mis
               one address, one key, automatic failover
 ```
 
+### Will this give me Claude or ChatGPT for free?
+
+**No.** Say it plainly, because it's the most common misunderstanding:
+
+- Anthropic (Claude) and OpenAI (ChatGPT) do **not** offer a free API tier. Their free
+  chatbots are websites — they can't be plugged into this.
+- FreeLLMAPI's "Claude support" means something different: it *speaks Claude's language*
+  so tools built for Claude (like the Claude Code command-line tool) can run on it. When
+  such a tool asks for `claude-sonnet-4-5`, the router quietly answers with a **free open
+  model** (Qwen, GLM, Kimi, Llama, DeepSeek…). You get the tool, not the Claude brain.
+- What you actually get free: very good open-weight models — Qwen3 235B, GLM-5, Kimi,
+  DeepSeek, Llama, GPT-OSS 120B — from Google, Groq, Cerebras and friends. For summaries,
+  writing, translation, everyday code and Q&A they're genuinely close. For the hardest
+  reasoning they fall short of paid Claude/GPT-5-class models.
+- The project's own docs admit the limits: "no frontier models, variable latency, no SLA."
+  If a task must be the absolute best, use a paid model for that one task.
+
 Two honest notes before you start:
 
 - This is for **personal use** — experiments, learning, small side projects. Don't build a
