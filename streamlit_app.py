@@ -226,6 +226,13 @@ with tabs[4]:
         "Full comparison table (Kaggle vs Colab vs Runpod vs vast.ai vs HF Spaces vs fal/Replicate): "
         "`aarya/README.md` § *Every run option, compared*."
     )
+    st.subheader("AWS EC2 route (Mumbai, persistent box)")
+    st.markdown(
+        "`aarya/cloud/AWS_SETUP.md` + `aws_bootstrap.sh` — **g6.xlarge (L4 24 GB)**: $0.97/h "
+        "on-demand, ~$0.42–0.53/h spot (ap-south-1). Models live on the EBS disk across "
+        "stop/start; ComfyUI stays loopback-only, you tunnel in over SSH. Video ✅ stills ✅. "
+        "Free tier has **no** GPUs — with AWS credits this becomes the best option."
+    )
 
 # ---------------------------------------------------------------- readme tab
 with tabs[5]:
