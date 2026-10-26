@@ -149,6 +149,26 @@ No-cloud alternative: any friend's PC with an NVIDIA ≥ 16 GB card — copy the
 
 ---
 
+## Run on Google Colab (no local GPU needed)
+
+**[`aarya/cloud/aarya_comfy_colab.ipynb`](cloud/aarya_comfy_colab.ipynb)** — upload to Colab and run
+cells top to bottom. It mounts Drive (models download **once** into `Drive/MyDrive/aarya/models`,
+reused every session), installs ComfyUI + ReActor, symlinks model dirs, fetches the right model
+stack for your GPU, and prints a public tunnel URL to the ComfyUI UI.
+
+| Colab tier | GPU | Aarya stills | Aarya motion video |
+|---|---|---|---|
+| Free | T4 ~15 GB | ✅ | ❌ (14B int8 won't fit / Turing-slow) |
+| Pro (~$10/mo) | T4 / **L4 24 GB** / A100 draws | ✅ | ✅ on L4/A100 draws |
+| Pro+ (~$50/mo) | A100 40 GB | ✅ | ✅ comfortable |
+
+Cell 1 auto-detects VRAM and picks the tier (≥ 20 GB ⇒ Wan-Animate-2 stack, else stills stack).
+Keep the tab focused (idle-kick), and run the last cell to copy outputs to Drive before the
+session recycles. See also [`cloud/RUNPOD_SETUP.md`](cloud/RUNPOD_SETUP.md) for the pay-per-use
+alternative (≈ $0.02–0.06 per clip, deterministic 4090).
+
+---
+
 ## Repo layout & maintenance
 
 ```

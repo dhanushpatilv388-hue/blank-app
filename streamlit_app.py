@@ -208,6 +208,15 @@ with tabs[4]:
     )
     st.warning("Your laptop (Intel UHD, 16 GB RAM) can run the stills workflow only — "
                "launch ComfyUI with the `--cpu` flag there.")
+    st.subheader("Google Colab route (notebook included)")
+    st.markdown(
+        "`aarya/cloud/aarya_comfy_colab.ipynb` — upload to Colab, run top to bottom: mounts Drive "
+        "(models download once), installs ComfyUI + ReActor, auto-picks the model stack by VRAM, "
+        "prints a public tunnel URL.\n\n"
+        "- **Free tier (T4 15 GB):** stills ✅ · motion video ❌\n"
+        "- **Pro (L4/A100 draws):** stills ✅ · motion video ✅\n"
+        "- **Pro+ (A100):** everything ✅, 720p possible"
+    )
 
 # ---------------------------------------------------------------- readme tab
 with tabs[5]:
