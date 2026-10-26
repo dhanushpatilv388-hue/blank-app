@@ -186,10 +186,10 @@
       },
       "title": "CLIP Text Encode (Aarya scene prompt)",
       "widgets_values": [
-        "portrait photo of a beautiful young Indian woman, aarya_face, looking at camera, soft window light, 85mm, sharp focus, detailed skin"
+        "portrait photo of Aarya, a young Indian woman ~23, warm wheat-brown skin, long jet-black wavy hair with a centre parting, small round black bindi on her forehead, tiny silver nose stud in her left nostril, dark brown almond eyes, nude-pink lips, wearing a bright orange cropped cami top and blush-pink sequin skirt, soft window light, 85mm, sharp focus, detailed skin"
       ],
       "widgets_values_named": {
-        "text": "portrait photo of a beautiful young Indian woman, aarya_face, looking at camera, soft window light, 85mm, sharp focus, detailed skin"
+        "text": "portrait photo of Aarya, a young Indian woman ~23, warm wheat-brown skin, long jet-black wavy hair with a centre parting, small round black bindi on her forehead, tiny silver nose stud in her left nostril, dark brown almond eyes, nude-pink lips, wearing a bright orange cropped cami top and blush-pink sequin skirt, soft window light, 85mm, sharp focus, detailed skin"
       }
     },
     {

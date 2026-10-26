@@ -15,6 +15,12 @@ import json
 import os
 import sys
 
+POS = ("portrait photo of Aarya, a young Indian woman ~23, warm wheat-brown skin, long "
+       "jet-black wavy hair with a centre parting, small round black bindi on her forehead, "
+       "tiny silver nose stud in her left nostril, dark brown almond eyes, nude-pink lips, "
+       "wearing a bright orange cropped cami top and blush-pink sequin skirt, soft window "
+       "light, 85mm, sharp focus, detailed skin")
+
 NEG = ("worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, "
        "poorly drawn face, mutation, deformed, bad anatomy, bad proportions, extra limbs, "
        "disfigured, gross proportions, malformed limbs, missing arms, cross-eyed, blurry")
@@ -70,12 +76,7 @@ def build():
     # 3 - positive prompt
     nodes.append(node(3, "CLIPTextEncode", [-320, -450], [420, 180], [inp("clip", "CLIP", 14)],
                       [out("CONDITIONING", "CONDITIONING", [16])],
-                      widgets=["portrait photo of a beautiful young Indian woman, "
-                               "aarya_face, looking at camera, soft window light, 85mm, "
-                               "sharp focus, detailed skin"],
-                      named={"text": "portrait photo of a beautiful young Indian woman, "
-                                      "aarya_face, looking at camera, soft window light, 85mm, "
-                                      "sharp focus, detailed skin"},
+                      widgets=[POS], named={"text": POS},
                       title="CLIP Text Encode (Aarya scene prompt)", order=3))
     # 4 - negative prompt
     nodes.append(node(4, "CLIPTextEncode", [-320, -220], [420, 160], [inp("clip", "CLIP", 15)],

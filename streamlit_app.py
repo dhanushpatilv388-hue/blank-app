@@ -81,10 +81,50 @@ WORKFLOWS = [
     },
 ]
 
-tabs = st.tabs(["📦 Workflows", "🧰 Models checklist", "📸 Prep guide", "☁️ Cloud run", "📖 README"])
+tabs = st.tabs(["🎭 Identity", "📦 Workflows", "🧰 Models checklist", "📸 Prep guide",
+                "☁️ Cloud run", "📖 README"])
+
+# ---------------------------------------------------------------- identity tab
+with tabs[0]:
+    st.subheader("Locked identity markers")
+    refs = os.path.join(HERE, "aarya", "references")
+    c1, c2, c3, c4 = st.columns(4)
+    for col, fn, cap in [
+        (c1, "aarya_ref_front_bust.png", "Look A — signature\n(WanAnimate2 reference_image)"),
+        (c2, "aarya_face_direct.png", "Face lock\n(ReActor source_image)"),
+        (c3, "aarya_ref_fullbody.png", "Full-body ref\n(full-body drive videos)"),
+        (c4, "aarya_charactersheet_01.jpeg", "Character sheet 01\n(QA target / LoRA set)"),
+    ]:
+        p = os.path.join(refs, fn)
+        if os.path.exists(p):
+            col.image(p, caption=cap, use_container_width=True)
+    st.markdown(
+        "1. **Bindi** — small round black, centred between brows  ·  "
+        "2. **Nose stud** — tiny silver, *left* nostril  ·  "
+        "3. **Hair** — jet-black, centre part, waves past chest  ·  "
+        "4. **Eyes** — dark brown almond  ·  "
+        "5. **Brows** — natural dark  ·  "
+        "6. **Lips** — nude-pink  ·  "
+        "7. **Skin** — warm wheat-brown  ·  "
+        "8. **Build** — slim, ~5'4\"–5'6\""
+    )
+    st.subheader("Character prompt (pre-baked into the video workflows)")
+    st.code(
+        "Character Description: Aarya - a young Indian woman, ~23 years old, warm wheat-brown "
+        "skin, long jet-black wavy hair with a centre parting falling past her chest, a small "
+        "round black bindi between her brows, a tiny silver stud in her left nostril, dark brown "
+        "almond eyes, soft natural dark brows, nude-pink medium-full lips, slim graceful build; "
+        "wearing a bright orange cropped spaghetti-strap cami top and a blush-pink sequin skirt; "
+        "photorealistic, identical face in every frame.\n"
+        "Background description: <DESCRIBE SCENE>",
+        language="text",
+    )
+    st.info("Full identity card, look variants and drift first-aid: `aarya/AARYA_IDENTITY.md` "
+            "(README tab → or the repo). Send the **driving video** next and I'll write the "
+            "matching pose prompt.")
 
 # ---------------------------------------------------------------- workflows tab
-with tabs[0]:
+with tabs[1]:
     for wf in WORKFLOWS:
         path = os.path.join(WF_DIR, wf["file"])
         is_rec = wf["key"] in recommended
@@ -110,7 +150,7 @@ with tabs[0]:
                 st.error(f"missing {path}")
 
 # ---------------------------------------------------------------- models tab
-with tabs[1]:
+with tabs[2]:
     st.markdown("Tick what you already have. Sizes are download sizes.")
     rows = []
     for wf in WORKFLOWS:
@@ -123,7 +163,7 @@ with tabs[1]:
     st.info("Full download list with folders + sources: aarya/README.md § Models, or the README tab.")
 
 # ---------------------------------------------------------------- prep tab
-with tabs[2]:
+with tabs[3]:
     c1, c2 = st.columns(2)
     with c1:
         st.subheader("Reference image (WHO)")
@@ -155,7 +195,7 @@ with tabs[2]:
     )
 
 # ---------------------------------------------------------------- cloud tab
-with tabs[3]:
+with tabs[4]:
     st.subheader("Rent a GPU for the video workflows (~$0.02–0.06 per 81-frame clip)")
     st.code(
         "# RunPod: community cloud, template runpod/comfyui, GPU = RTX 4090 / A40 / L40S (24 GB)\n"
@@ -170,7 +210,7 @@ with tabs[3]:
                "launch ComfyUI with the `--cpu` flag there.")
 
 # ---------------------------------------------------------------- readme tab
-with tabs[4]:
+with tabs[5]:
     readme = os.path.join(HERE, "aarya", "README.md")
     if os.path.exists(readme):
         st.markdown(open(readme, encoding="utf-8").read())

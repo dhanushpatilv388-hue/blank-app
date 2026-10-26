@@ -20,10 +20,13 @@ import os
 import sys
 
 CHARACTER_PROMPT = (
-    "Character Description: Aarya - a young Indian woman, warm brown skin, long dark wavy "
-    "hair, dark brown eyes, natural makeup, wearing <DESCRIBE OUTFIT, e.g. an emerald green "
-    "silk saree with gold jewellery>; photorealistic, identical face in every frame.\n"
-    "Background description: <DESCRIBE SCENE, e.g. a sun-lit Mumbai art-deco street at golden "
+    "Character Description: Aarya - a young Indian woman, ~23 years old, warm wheat-brown skin, "
+    "long jet-black wavy hair with a centre parting falling past her chest, a small round black "
+    "bindi between her brows, a tiny silver stud in her left nostril, dark brown almond eyes, "
+    "soft natural dark brows, nude-pink medium-full lips, slim graceful build; wearing a bright "
+    "orange cropped spaghetti-strap cami top and a blush-pink sequin skirt; photorealistic, "
+    "identical face in every frame.\n"
+    "Background description: <DESCRIBE SCENE, e.g. a sun-lit Mumbai seafront promenade at golden "
     "hour, shallow depth of field>"
 )
 POSE_PROMPT = (
@@ -42,6 +45,9 @@ This workflow is pre-wired for **Aarya**: one reference image (WHO) + one drivin
 3. Copy your assets into `ComfyUI/input/`:
    - `aarya_ref.png`  - the single best photo of Aarya (front-facing, even light, face sharp)
    - `aarya_drive.mp4` - the video whose motion Aarya must perform (16-24 fps, one person, full body)
+   Ready-made refs ship in this pack under `aarya/references/`: copy
+   `aarya_ref_front_bust.png` (default) or `aarya_ref_fullbody.png` (full-body drive videos)
+   to `ComfyUI/input/aarya_ref.png`. Identity markers + prompts: `aarya/AARYA_IDENTITY.md`.
 4. On **AARYA - 1 Reference Image** and **AARYA - 2 Driving Video** nodes, click refresh/upload and pick those files.
 5. Open the **Motion Transfer** subgraph (double-click it) and edit the two prompts:
    - character prompt: replace the `<DESCRIBE OUTFIT>` / `<DESCRIBE SCENE>` placeholders
@@ -116,8 +122,9 @@ def patch(doc, variant):
             title = n.get("title", "")
             if title == "Model Links":
                 txt = n["widgets_values_named"].get("text") or n["widgets_values"][0]
-                txt = txt + ASSETS_NOTE
-                set_named(n, "text", txt)
+                if ASSETS_NOTE.strip()[:40] not in txt:
+                    txt = txt + ASSETS_NOTE
+                    set_named(n, "text", txt)
         elif t in subgraph_ids and "Motion Transfer" in subgraph_ids[t]:
             # prompt widgets exposed on the subgraph node itself
             if variant == "full":
@@ -142,8 +149,15 @@ def patch(doc, variant):
             for k in ("device", "device_1"):
                 set_named(n, k, "cpu")
 
-    # add the START HERE note next to the reference-image loader
+    # add (or refresh) the START HERE note next to the reference-image loader
     if load_image is not None:
+        existing = next((x for x in doc["nodes"]
+                         if x["type"] == "MarkdownNote"
+                         and x.get("title") == "AARYA PACK - START HERE"), None)
+        if existing is not None:
+            existing["widgets_values"] = [AARYA_NOTE]
+            existing.setdefault("widgets_values_named", {})["text"] = AARYA_NOTE
+            return doc
         note = {
             "id": doc["last_node_id"] + 1,
             "type": "MarkdownNote",
@@ -177,7 +191,13 @@ def main():
         ("video_wan_animate2_distilled.json", "aarya_video_wan_animate2_distilled_gpu.json", "distilled"),
     ]
     for src, dst, variant in jobs:
-        with open(os.path.join(tpl_dir, src)) as f:
+        src_path = os.path.join(tpl_dir, src)
+        if not os.path.exists(src_path):  # self-contained re-patch of our own output
+            src_path = os.path.join(out_dir, dst)
+            if not os.path.exists(src_path):
+                raise SystemExit(f"neither template nor existing output found: {src_path}")
+            print(f"note: official template missing, re-patching {src_path} in place")
+        with open(src_path) as f:
             doc = json.load(f)
         doc = patch(doc, variant)
         doc.setdefault("extra", {})["aarya_pack"] = {
