@@ -217,6 +217,15 @@ with tabs[4]:
         "- **Pro (L4/A100 draws):** stills ✅ · motion video ✅\n"
         "- **Pro+ (A100):** everything ✅, 720p possible"
     )
+    st.subheader("Kaggle route (free, fixed 30 GPU h/week)")
+    st.markdown(
+        "`aarya/cloud/aarya_comfy_kaggle.ipynb` — same pack, Kaggle rules: free GPU is **2× T4 "
+        "(16 GB each)** since the P100 sunset (Sep 2026), ~30 h/week quota, 12 h sessions, models "
+        "persist as **private datasets** (`aarya-pack`, `aarya-models-b`), outputs in "
+        "`/kaggle/working`. Stills ✅ free · motion video ❌ on T4 (needs ≥20 GB single GPU).\n\n"
+        "Full comparison table (Kaggle vs Colab vs Runpod vs vast.ai vs HF Spaces vs fal/Replicate): "
+        "`aarya/README.md` § *Every run option, compared*."
+    )
 
 # ---------------------------------------------------------------- readme tab
 with tabs[5]:

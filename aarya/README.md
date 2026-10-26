@@ -169,6 +169,24 @@ alternative (≈ $0.02–0.06 per clip, deterministic 4090).
 
 ---
 
+## Every run option, compared (verified Oct 2026)
+
+| Option | GPU you get | Aarya stills | Aarya motion video | Cost | Notes |
+|---|---|---|---|---|---|
+| Your laptop | Intel UHD | ✅ slow (CPU) | ❌ | free | `--cpu` flag |
+| **Kaggle** [`aarya_comfy_kaggle.ipynb`](cloud/aarya_comfy_kaggle.ipynb) | 2× T4 16 GB (free, ~30 h/wk, 12 h session; P100 sunset Sep 2026) | ✅ | ❌ (16 GB/GPU; 2nd T4 not turnkey-usable) | free | fixed weekly quota (no Colab roulette); models persist as **private datasets**; phone verification; idle burns quota |
+| **Colab** [`aarya_comfy_colab.ipynb`](cloud/aarya_comfy_colab.ipynb) | Free T4 15 GB · Pro L4/A100 draws · Pro+ A100 | ✅ | ✅ on Pro L4/A100 draws | free / ~$10 / ~$50 mo | Drive-persistent models; GPU lottery on Pro |
+| **Runpod** [`cloud/RUNPOD_SETUP.md`](cloud/RUNPOD_SETUP.md) | pick it: 4090/A40/L40S 24 GB | ✅ | ✅ deterministic | ~$0.34–0.69/h ⇒ $0.02–0.06/clip | pay-per-use; volume keeps models; skills installed in this repo's setup |
+| **vast.ai** | marketplace 4090-class 24 GB | ✅ | ✅ | ~$0.25–0.45/h | cheapest video hours; quality varies by host |
+| HF Spaces | always-on ComfyUI space, A10G-class 24 GB | ✅ | ✅ | cents/h while on | your private persistent ComfyUI *site*; shareable URL |
+| fal.ai / Replicate | hosted Wan-Animate APIs | – | ✅ zero setup | per-video | no infra at all; upload ref+drive video, get clip back |
+
+**Bottom line:** free tiers (Kaggle/Colab) = Aarya *images* today. Aarya *motion video* needs a
+≥ 20 GB single GPU: cheapest = vast.ai/Runpod per clip; most convenient subscription = Colab Pro
+on an L4/A100 draw; zero-ops = fal/Replicate per-video billing.
+
+---
+
 ## Repo layout & maintenance
 
 ```
